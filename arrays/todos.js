@@ -16,7 +16,7 @@ const todos = [
     completed: true
   },
   { 
-   text: 'Lear React/Redux',
+   text: 'Learn React/Redux',
    completed: false
   }]
 
