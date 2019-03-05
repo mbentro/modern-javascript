@@ -1,41 +1,26 @@
-const notes = [
-  {
-    title: 'My next trip',
-    body: 'I would like to go to Japan'
-  }, 
-  {
-    title: 'Habbits to work on',
-    body: 'Exercise. Eating better'
-  }, 
-  {
-    title: 'Games to play',
-    body: 'LoL, GoW, Red Dead II'
-  }];
-
-const filters = {
-  searchText: ''
-}
-
-const renderNotes = function(notes, filters){
-  const filteredNotes = notes.filter(function(note){
-    return note.title.toLowerCase().includes(filters.searchText.toLowerCase())
-  })
-
-  document.querySelector('#notes').innerHTML = ''
+let notes = getSavedNotes()
   
-  filteredNotes.forEach(function(note){
-    const noteElem = document.createElement('p')
-    noteElem.textContent = note.title
-    document.querySelector('#notes').appendChild(noteElem)
-  })
+const filters = {
+  searchText: '',
+  sortBy: 'byEdited'
 }
 
 renderNotes(notes, filters)
 
 document.querySelector('#create-note').addEventListener('click', function(e){
-  console.log('Created new note')
+  const id = uuidv4()
+  const createdAt = moment().valueOf()
+  notes.push({
+    id: id,
+    title: '',
+    body: '',
+    createdAt: createdAt,
+    updatedAt: createdAt
+  })
+  saveNotes(notes)
+  renderNotes(notes, filters)
+  location.assign(`/edit.html#${id}`)
 })
-
 
 document.querySelector('#search-text').addEventListener('input', function(e){
   filters.searchText = e.target.value
@@ -43,5 +28,13 @@ document.querySelector('#search-text').addEventListener('input', function(e){
 })
 
 document.querySelector('#filter-by').addEventListener('change', function(e){
-  console.log(e.target.value)
+  filters.sortBy = e.target.value
+  renderNotes(notes, filters)
+})
+
+window.addEventListener('storage', function(e){
+  if(e.key === 'notes'){
+    notes = JSON.parse(e.newValue)
+    renderNotes(notes, filters)
+  }
 })
