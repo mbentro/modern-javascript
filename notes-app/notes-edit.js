@@ -7,11 +7,9 @@ const noteId = location.hash.substring(1)
 
 let notes = getSavedNotes()
 
-let note = notes.find(function(note){
-  return note.id === noteId
-})
+let note = notes.find((note) => note.id === noteId)
 
-if ( note === undefined ){
+if (!note){
   location.assign('/index.html')
 }
 
@@ -19,34 +17,32 @@ titleElem.value = note.title
 editedElem.textContent = moment(note.updateAt).fromNow()
 bodyElem.value = note.body
 
-titleElem.addEventListener('input', function(e){
+titleElem.addEventListener('input', (e) => {
   note.title = e.target.value
   updateNote()
   saveNotes(notes)
 })
 
-bodyElem.addEventListener('input', function(e){
+bodyElem.addEventListener('input', (e) => {
   note.body = e.target.value
   updateNote()
   saveNotes(notes)
 })
 
-removeElem.addEventListener('click', function(e){
+removeElem.addEventListener('click', (e) => {
   removeNote(note.id)
   saveNotes(notes)
   location.assign('/index.html')
 })
 
-window.addEventListener('storage', function(e){
+window.addEventListener('storage', (e) => {
   if(e.key === 'notes'){
     notes = JSON.parse(e.newValue)
     notes = getSavedNotes()
 
-    note = notes.find(function(note){
-      return note.id === noteId
-    })
+    note = notes.find((note) => note.id === noteId )
     
-    if ( note === undefined ){
+    if (!note){
       location.assign('/index.html')
     }
     updateNote()
