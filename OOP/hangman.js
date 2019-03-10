@@ -23,8 +23,6 @@ Hangman.prototype.makeGuess = function(guessedLetter){
       this.wordGuess[index] = lowLetter
     }
   });
-
-  this.remainingGuesses--
   
   if(this.wordGuess.toString() === this.word.toString()){
     return `Guess: ${lowLetter} - Correct! the word was '${this.word.toString().replace(/,/g, '')}'`
@@ -37,23 +35,20 @@ Hangman.prototype.initialize = function(){
   this.word.forEach((letter) => {
     if(letter !== ' '){
       this.wordGuess.push('*')
+      this.remainingGuesses--
     } else if (letter === ' '){
       this.wordGuess.push(' ')
     }
   })
 }
 
-const hangOne = new Hangman('Cat', 6)
+const hangOne = new Hangman('Cat', 2)
 hangOne.initialize()
 
 console.log(hangOne.makeGuess('C'))
-console.log(hangOne.makeGuess('4'))
-console.log(hangOne.makeGuess('T'))
-console.log(hangOne.makeGuess('O'))
-console.log(hangOne.makeGuess('T'))
-console.log(hangOne.makeGuess('J'))
 console.log(hangOne.makeGuess('Z'))
-console.log(hangOne.makeGuess('A'))
+console.log(hangOne.makeGuess('T'))
+console.log(hangOne.remainingGuesses)
 
 // console.log(hangOne.word)
 // console.log(hangOne.wordGuess)

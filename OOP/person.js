@@ -1,26 +1,64 @@
-const Person = function(firstName, lastName, age, likes = []){
-  this.firstName = firstName
-  this.lastName = lastName
-  this.age = age
-  this.likes = likes
+
+class Person {
+  constructor(firstName, lastName, age, likes = []){
+    this.firstName = firstName
+    this.lastName = lastName
+    this.age = age
+    this.likes = likes
+  }
+  getBio() {
+    let bio = `${this.firstName} is ${this.age}.`
+    this.likes.forEach((like) => {
+      bio += ` ${this.firstName} likes ${like}.`
+    })
+    return bio
+  }
+
+  set fullName(fullName) {
+    const names = fullName.split(' ')
+    this.firstName = names[0]
+    this.lastName = names[1]
+  }
+
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`
+  }
 }
 
-Person.prototype.getBio = function(){
-  let bio = `${this.firstName} is ${this.age}.`
-  this.likes.forEach((like) => {
-    bio += ` ${firstName} likes ${like}.`
-  })
-  return bio
+class Employee extends Person {
+  constructor(firstName, lastName, age, likes, position){
+    super(firstName, lastName, age, likes)
+    this.position = position
+  }
+  getBio() {
+    return `${this.fullName} is a ${this.position}.`
+  }
+
+  getYearsLeft() {
+    return 65 - this.age
+  }
 }
 
-Person.prototype.setName = function(fullName) {
-  const names = fullName.split(' ')
-  this.firstName = names[0]
-  this.lastName = name[1]
+class Student extends Person {
+  constructor(firstName, lastName, age, likes, grade) {
+    super(firstName, lastName, age, likes)
+    this.grade = grade
+  }
+
+  getBio(){
+    const passFail = this.grade >= 70 ? 'passing' : 'failing'
+    return `${this.firstName} is ${passFail} the course`
+  }
+
+  updateGrade(increment){
+    return this.grade += increment
+  }
 }
 
-const me = new Person('Matt', 'Bentrovato', 33, ['LoL', 'Movies'])
-console.log(me)
 
-const wife = new Person('Carla', 'Ramos', 29)
-console.log(wife)
+const student = new Employee('Ptheven', 'Dog', 20, ['Movies', 'Hockey'], 'Car washer')
+
+console.log(student.getBio())
+student.fullName = 'Carla Ramos'
+// student.updateGrade(5)
+console.log(student.getBio())

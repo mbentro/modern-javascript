@@ -15,13 +15,13 @@ const saveTodos = (todos) => {
 const hideCompleted = (todos, completed = false) => {
   const hiddenTodos = todos.filter((todo) => todo.completed === completed)  
   return hiddenTodos
- }
+}
 
- const renderTodos = (todos, filters) => {
+const renderTodos = (todos, filters) => {
   const filterTodos = todos.filter((todo) => todo.text.toLowerCase().includes(filters.searchText.toLowerCase()))
 
   const remainingTodos = filterTodos.filter((todo) => !todo.completed)
-  
+
   document.querySelector('#todos').innerHTML = ''
 
   const para = generateSummaryDOM(remainingTodos)
