@@ -64,4 +64,42 @@ startGame()
 document.querySelector('#reset').addEventListener('click', (e) => {
   e.preventDefault()
   startGame()
+<<<<<<< HEAD:hangman/scripts/app.js
 })
+=======
+})
+// getPuzzle('3').then((puzzle) => {
+//   console.log(puzzle)
+// }).catch((err) => {
+//   console.log(`Error: ${err}`)
+// })
+
+// getCurrentCountry().then((country) => {
+//   console.log(country.name)
+// }).catch((err) => {
+//   console.log(`Error: ${err}`)
+// })
+
+// getCountry('CA').then((country) => {
+//   console.log(country.name)
+// }).catch((error) => {
+//   console.log(error)
+// })
+
+
+// getLocation().then((location) => {
+//   console.log(location.city)
+//   console.log(location.region)
+//   console.log(location.country)
+// }).catch((error) => {
+//   console.log(error)
+// })
+
+// getLocation().then((location) => {
+//   return getCountry(location.country)
+// }).then((country) => {
+//   console.log(country.name)
+// }).catch((error) => {
+//   console.log(error)
+// })
+>>>>>>> e6e082bf5e7fea8efc3edd3eab43581283d7fa57:hangman/app.js
