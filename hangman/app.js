@@ -2,29 +2,20 @@ let hangmanGame
 
 const puzzleDOM = (game) => {
   const titleElem = document.createElement('h3')
-  const divElem = document.createElement('div')
-  const puzzleArray = game.puzzle.split('')
-  let puzzleWord = ''
-  puzzleArray.forEach((letter) => {
-    const letterElem = document.createElement('span')
-    letterElem.textContent = letter
-    divElem.appendChild(letterElem)
-  })
-  // console.log(titleElem.innerHTML = divElem)
-  titleElem.innerHTML = `Game: ${divElem.innerHTML} - Remaining Guesses: ${game.remainingGuesses}`
+  titleElem.textContent = `Game: ${game.puzzle} - Remaining Guesses: ${game.remainingGuesses}`
 
   return titleElem
 }
 
 const guessDOM = (game) => {
-  const bodyElem = document.createElement('p')
+  const bodyElem = document.createElement('span')
   bodyElem.textContent = `Guesses: ${game.printGuesses() }`
   
   return bodyElem
 }
 
 const outputDOM = (game) => {
-  const outputElem = document.createElement('p')
+  const outputElem = document.createElement('span')
   outputElem.textContent = game.statusMessage
   return outputElem
 }
@@ -65,3 +56,37 @@ document.querySelector('#reset').addEventListener('click', (e) => {
   e.preventDefault()
   startGame()
 })
+// getPuzzle('3').then((puzzle) => {
+//   console.log(puzzle)
+// }).catch((err) => {
+//   console.log(`Error: ${err}`)
+// })
+
+// getCurrentCountry().then((country) => {
+//   console.log(country.name)
+// }).catch((err) => {
+//   console.log(`Error: ${err}`)
+// })
+
+// getCountry('CA').then((country) => {
+//   console.log(country.name)
+// }).catch((error) => {
+//   console.log(error)
+// })
+
+
+// getLocation().then((location) => {
+//   console.log(location.city)
+//   console.log(location.region)
+//   console.log(location.country)
+// }).catch((error) => {
+//   console.log(error)
+// })
+
+// getLocation().then((location) => {
+//   return getCountry(location.country)
+// }).then((country) => {
+//   console.log(country.name)
+// }).catch((error) => {
+//   console.log(error)
+// })
