@@ -13,8 +13,10 @@ document.querySelector('#todo-search').addEventListener('input', (e) => {
 
 document.querySelector('#add-todo').addEventListener('submit', (e) => {
   e.preventDefault()
-  if(e.target.elements.addTodo.value.length > 0) {
-    addTodo(todos, e.target.elements.addTodo.value)
+  const trimmedInput = e.target.elements.addTodo.value.trim()
+
+  if(trimmedInput.length > 0) {
+    addTodo(todos, trimmedInput)
     saveTodos(todos)
     renderTodos(todos, filters)
   }

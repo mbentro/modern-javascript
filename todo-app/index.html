@@ -1,23 +1,41 @@
 <!DOCTYPE html>
 <html>
   <head>
-
+    <title>Todo App</title>
+    <link href="/styles/styles.css" rel="stylesheet">
+    <link href="/images/favicon.png?v=1" rel="icon">
   </head>
   <body>
-    <h1>Todo List</h1>
-    <input type="text" id="todo-search" placeholder="Search Todo">
-    <label id="hide-completed">
-        <input type="checkbox">Hide Completed Todos
-    </label>    
-    <div id="todos"></div>
-    <form id="add-todo">
-      <input id="add-text" type="text" placeholder="Add Todo" name="addTodo">
-      <button id="add-todo-button">Add Todo</button>
-    </form>
+    <div class="header">
+      <div class="container">
+        <h1 class="header__title">To-do App</h1>
+        <h2 class="header__subtitle">What do you need to do?</h2>
+      </div>
+    </div>
+
+    <div class="actions">
+      <div class="actions__container">
+          <input type="text" class="input" id="todo-search" placeholder="Search Todo">
+          <label id="hide-completed" class="checkbox">
+              <input type="checkbox">Hide Completed Todos
+          </label>   
+      </div>
+    </div>
+ 
+    <div class="container">
+        <div id="todos"></div>
+        <form id="add-todo">
+          <input id="add-text" class="input" type="text" placeholder="Add Todo" name="addTodo">
+          <button id="add-todo-button" class="button">Add Todo</button>
+        </form>
+    </div>
+
+
+
     
-    <script src="http://wzrd.in/standalone/uuid%2Fv4@latest"></script>
-    <script src="./todos-functions.js"></script>
-    <script src="./todo-app.js"></script> 
+    <script src="/scripts/uuidv4.js"></script>
+    <script src="/scripts/todos-functions.js"></script>
+    <script src="/scripts/todo-app.js"></script> 
   </body>
 
 </html>

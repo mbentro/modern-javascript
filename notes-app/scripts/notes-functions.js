@@ -16,44 +16,58 @@ const saveNotes = (notes) => {
 
 // Generate the DOM for the note
 const generateNoteDOM = (note) => {
-  const noteElem = document.createElement('div')
-  const textElem = document.createElement('a')
-  const button = document.createElement('button')
+  const noteElem = document.createElement('a')
+  const textElem = document.createElement('p')
+  const statusElem = document.createElement('p')
+  // const button = document.createElement('button')
     
   // Set up the remove Note button
-  button.textContent = 'x'
-  noteElem.appendChild(button)
-  button.addEventListener('click', (e) => {
-    removeNote(note.id)
-    saveNotes(notes)
-    renderNotes(notes, filters)
-  })
+  // button.textContent = 'x'
+  // noteElem.appendChild(button)
+  // button.addEventListener('click', (e) => {
+  //   removeNote(note.id)
+  //   saveNotes(notes)
+  //   renderNotes(notes, filters)
+  // })
 
   // Set up the title text
   if(note.title.length > 0){
     textElem.textContent = note.title
   } else {
     textElem.textContent = 'Unnamed Note'
-  }
-
-  textElem.setAttribute('href', `/edit.html#${note.id}`)
-
+  }  
+  textElem.classList.add('list-item__title')
   noteElem.appendChild(textElem)
+
+  noteElem.setAttribute('href', `/edit.html#${note.id}`)
+  noteElem.classList.add('list-item')
+
+  statusElem.classList.add('list-item__subtitle')
+  statusElem.textContent = generateLastEdited(note.updateAt)
+  noteElem.appendChild(statusElem)
+
   return noteElem
 }
 
 // Render app notes
 const renderNotes = (notes, filters) => {
 sortNotes(notes, filters.sortBy)
-
+  const notesElem = document.querySelector('#notes')
   const filteredNotes = notes.filter((note) => note.title.toLowerCase().includes(filters.searchText.toLowerCase()))
 
   document.querySelector('#notes').innerHTML = ''
   
-  filteredNotes.forEach((note) => {
-    const noteElem = generateNoteDOM(note)    
-    document.querySelector('#notes').appendChild(noteElem)
-  })
+  if(filteredNotes.length > 0) {
+    filteredNotes.forEach((note) => {
+      const noteElem = generateNoteDOM(note)    
+      notesElem.appendChild(noteElem)
+    })
+  } else {
+    const emptyElem = document.createElement('p')
+    emptyElem.textContent = 'No Notes Yet'
+    emptyElem.classList.add('empty-message')
+    notesElem.appendChild(emptyElem)
+  }
 }
 
 const removeNote = (id) => {
@@ -68,6 +82,10 @@ const updateNote = () => {
   note.updatedAt = moment().valueOf()
   const timeBetween = moment(note.updatedAt).fromNow()
   editedElem.textContent = `Last Edited: ${timeBetween}`
+}
+
+const generateLastEdited = (timestamp) => {
+  return `Last Edited ${moment(timestamp).fromNow()}`
 }
 
 const sortNotes = (notes, sortBy) => {

@@ -1,19 +1,30 @@
+let hangmanGame
+
 const puzzleDOM = (game) => {
   const titleElem = document.createElement('h3')
-  titleElem.textContent = `Game: ${game.puzzle} - Remaining Guesses: ${game.remainingGuesses}`
+  const divElem = document.createElement('div')
+  const puzzleArray = game.puzzle.split('')
+  let puzzleWord = ''
+  puzzleArray.forEach((letter) => {
+    const letterElem = document.createElement('span')
+    letterElem.textContent = letter
+    divElem.appendChild(letterElem)
+  })
+  // console.log(titleElem.innerHTML = divElem)
+  titleElem.innerHTML = `Game: ${divElem.innerHTML} - Remaining Guesses: ${game.remainingGuesses}`
 
   return titleElem
 }
 
 const guessDOM = (game) => {
-  const bodyElem = document.createElement('span')
+  const bodyElem = document.createElement('p')
   bodyElem.textContent = `Guesses: ${game.printGuesses() }`
   
   return bodyElem
 }
 
 const outputDOM = (game) => {
-  const outputElem = document.createElement('span')
+  const outputElem = document.createElement('p')
   outputElem.textContent = game.statusMessage
   return outputElem
 }
@@ -36,11 +47,21 @@ const renderGame = (game) => {
 
 }
 
-const hangmanGame = new Hangman('DJ ROOMBA', 5)
-renderGame(hangmanGame)
-
 window.addEventListener('keypress', (e) => {
     const guess = String.fromCharCode(e.charCode)
     hangmanGame.makeGuess(guess)
     renderGame(hangmanGame)
+})
+
+const startGame = async () => {
+  const puzzle = await getPuzzle('2')
+  hangmanGame = new Hangman(puzzle, 5)
+  renderGame(hangmanGame)
+}
+
+startGame()
+
+document.querySelector('#reset').addEventListener('click', (e) => {
+  e.preventDefault()
+  startGame()
 })
